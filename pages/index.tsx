@@ -1,28 +1,35 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
 import { SnippetEditor } from "../components/snippet_editor/snippet_editor";
+import { Header } from "../components/snippet_editor/header";
+import { NetworkPicker } from "../components/snippet_editor/network_picker";
 
 const Home: NextPage = () => {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2 bg-gradient-to-br from-red-200 to-white">
+    <div className="flex min-h-screen flex-col items-center justify-center py-2 bg-gradient-to-br from-[#E1A5DD] to-white">
       <Head>
         <title>SnipNFT - Create code snippet and mint it as NFT</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex w-full flex-1 flex-col items-center px-20 text-center">
-        <h1 className="text-6xl font-bold mt-2">
-          Welcome to{" "}
-          <a className="text-red-700" href="https://nextjs.org">
+      <header className="grid grid-cols-[12.5%_12.5%_50%_12.5%_12.5%] justify-items-center w-full items-center">
+        <div></div>
+        <div></div>
+        <h1 className="text-6xl font-bold">
+          <a className="text-[#570DF8]" href="/">
             SnipNFT
           </a>
         </h1>
+        <NetworkPicker />
+        <Header />
+      </header>
+
+      <main className="flex w-full flex-1 flex-col items-center px-20 text-center">
         <h2 className="text-2xl font-light mt-10">
           Create a beautiful code snippet and mint it as NFT on Ethereum (via{" "}
           <a
             href="https://www.optimism.io/"
-            className="underline decoration-red-500"
+            className="underline decoration-[#570DF8]"
           >
             Optimism
           </a>
@@ -33,7 +40,14 @@ const Home: NextPage = () => {
         </div>
       </main>
 
-      <footer className="flex h-24 w-full items-center justify-center border-t border-red-300"></footer>
+      <footer className="flex h-24 w-full items-center justify-center mt-5 border-t border-[#DB88D6]">
+        <a
+          className="text-center underline decoration-inherit"
+          href="https://twitter.com/garrrikkotua"
+        >
+          @garrrikkotua
+        </a>
+      </footer>
     </div>
   );
 };
