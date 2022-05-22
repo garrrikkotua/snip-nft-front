@@ -17,9 +17,9 @@ const Home: NextPage = () => {
         <div></div>
         <div></div>
         <h1 className="text-6xl font-bold">
-          <a className="text-[#570DF8]" href="/">
-            SnipNFT
-          </a>
+          <Link href="/">
+            <a className="text-[#570DF8]">SnipNFT</a>
+          </Link>
         </h1>
         <NetworkPicker />
         <Header />
