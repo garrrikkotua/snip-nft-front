@@ -1,8 +1,9 @@
 import type { NextPage } from "next";
 import Head from "next/head";
+import Link from "next/link";
 import { SnippetEditor } from "../components/snippet_editor/snippet_editor";
-import { Header } from "../components/snippet_editor/header";
-import { NetworkPicker } from "../components/snippet_editor/network_picker";
+import { Header } from "../components/header";
+import { NetworkPicker } from "../components/network_picker";
 
 const Home: NextPage = () => {
   return (
@@ -41,12 +42,11 @@ const Home: NextPage = () => {
       </main>
 
       <footer className="flex h-24 w-full items-center justify-center mt-5 border-t border-[#DB88D6]">
-        <a
-          className="text-center underline decoration-inherit"
-          href="https://twitter.com/garrrikkotua"
-        >
-          @garrrikkotua
-        </a>
+        <Link href="https://twitter.com/garrrikkotua">
+          <a className="text-center underline decoration-inherit">
+            @garrrikkotua
+          </a>
+        </Link>
       </footer>
     </div>
   );

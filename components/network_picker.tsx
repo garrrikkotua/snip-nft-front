@@ -1,12 +1,12 @@
 import { useEthers } from "@usedapp/core";
-import { networks_names, network_ids } from "../../types/networks";
+import { networks_names, network_ids } from "../types/networks";
 
 export const NetworkPicker = () => {
   const { switchNetwork, chainId } = useEthers();
 
   const handleChange = async (newValue: string) => {
     if (newValue !== networks_names[network_ids.indexOf(chainId as number)]) {
-      await switchNetwork(network_ids[networks_names.indexOf(newValue)]);
+      switchNetwork(network_ids[networks_names.indexOf(newValue)]);
     }
   };
 

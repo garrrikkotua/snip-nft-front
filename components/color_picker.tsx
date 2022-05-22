@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useState } from "react";
 import { HexColorPicker, HexColorInput } from "react-colorful";
 import { ColorPickerBaseProps } from "react-colorful/dist/types";
 
-import useClickOutside from "../../hooks/useClickOutside";
+import useClickOutside from "../hooks/useClickOutside";
 
 interface PopoverPickerProps extends ColorPickerBaseProps<string> {
   disabled: boolean | undefined;
