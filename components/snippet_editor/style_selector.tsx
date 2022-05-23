@@ -4,7 +4,7 @@ const DEDAULT_SELECTED_CODE_STYLE = "vs";
 export const StyleSelector = ({ setCodeStyle }: any) => {
   return (
     <select
-      className="select select-sm select-ghost min-w-[50px]"
+      className="select select-sm select-bordered min-w-[50px]"
       onChange={(e) => setCodeStyle(e.target.value)}
     >
       <option disabled selected>

@@ -4,7 +4,7 @@ const DEFAULT_FONT_SIZE = 12;
 export const FontSizeSelector = ({ setFontSize }: any) => {
   return (
     <select
-      className="select select-sm select-ghost min-w-[50px]"
+      className="select select-sm select-bordered min-w-[50px]"
       onChange={(e) => setFontSize(Number(e.target.value))}
     >
       <option disabled selected>

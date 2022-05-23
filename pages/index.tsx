@@ -7,22 +7,24 @@ import { NetworkPicker } from "../components/network_picker";
 
 const Home: NextPage = () => {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2 bg-gradient-to-br from-[#E1A5DD] to-white">
+    <div className="flex min-h-screen w-full flex-col items-center justify-center py-2 bg-gradient-to-br from-[#E1A5DD] to-white">
       <Head>
         <title>SnipNFT - Create code snippet and mint it as NFT</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <header className="grid grid-cols-[12.5%_12.5%_50%_12.5%_12.5%] justify-items-center w-full items-center">
-        <div></div>
-        <div></div>
-        <h1 className="text-6xl font-bold">
-          <Link href="/">
-            <a className="text-[#570DF8]">SnipNFT</a>
-          </Link>
-        </h1>
-        <NetworkPicker />
-        <Header />
+      <header>
+        <div className="grid grid-rows-2 md:grid-cols-5 md:grid-rows-none w-full justify-items-center items-center">
+          <h1 className="text-6xl font-bold md:col-start-3 mb-3 md:mb-0">
+            <Link href="/">
+              <a className="text-[#570DF8]">SnipNFT</a>
+            </Link>
+          </h1>
+          <div className="flex flex-row justify-items-center items-center md:col-span-2 md:justify-self-end mr-2">
+            <NetworkPicker />
+            <Header />
+          </div>
+        </div>
       </header>
 
       <main className="flex w-full flex-1 flex-col items-center px-20 text-center">

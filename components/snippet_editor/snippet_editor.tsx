@@ -14,7 +14,6 @@ import { ProgressBar } from "./progress_bar";
 import { CodeEditor } from "./code_editor";
 import { MetadataEditor } from "./metadata_editor";
 import { Minter } from "./minter";
-import { useStore } from "../../hooks/useStore";
 
 enum Steps {
   Create_Image,
@@ -114,10 +113,10 @@ export const SnippetEditor = () => {
 
   return (
     <>
-      <div className="w-[70vw] min-h-[300px] min-w-[1000px] bg-white rounded-xl shadow-lg flex flex-col px-3 pt-0 pb-2">
-        <div className="grid grid-cols-[40%_20%_40%] h-12 justify-items-stretch content-center items-center">
+      <div className="w-[70vw] bg-white rounded-xl shadow-lg flex flex-col px-3 pt-0 pb-2">
+        <div className="grid md:grid-cols-[40%_20%_40%] grid-rows-3 md:grid-rows-none h-28 md:h-12 justify-items-stretch content-center items-center">
           <div
-            className="grid grid-cols-3 gap-2 h-12 content-center items-center"
+            className="grid grid-cols-3 gap-2 h-12 row-start-2 md:row-start-auto content-center items-center"
             style={{ display: currentStep > 0 ? "none" : "" }}
           >
             <PopoverPicker color={color} onChange={setColor} disabled={false} />
@@ -126,7 +125,7 @@ export const SnippetEditor = () => {
           </div>
           <h3
             className={
-              "font-bold justify-self-center self-center tooltip tooltip-primary " +
+              "font-bold justify-self-center self-center row-start-1 md:row-start-auto tooltip tooltip-primary " +
               (currentStep > 0 ? "col-span-3" : "")
             }
             data-tip={ToolTips[currentStep]}
@@ -134,7 +133,7 @@ export const SnippetEditor = () => {
             {EditorHeadings[currentStep]}
           </h3>
           <div
-            className="grid grid-cols-3 gap-2 h-12 content-center items-center"
+            className="grid grid-cols-3 gap-2 h-12 row-start-3 md:row-start-auto content-center items-center"
             style={{ display: currentStep > 0 ? "none" : "" }}
           >
             <PopoverPicker
@@ -147,7 +146,7 @@ export const SnippetEditor = () => {
                 <span className="label-text">Window</span>
                 <input
                   type="checkbox"
-                  className="toggle"
+                  className="toggle toggle-sm"
                   checked={windowStyle}
                   onChange={() => setWindowStyle(!windowStyle)}
                 />

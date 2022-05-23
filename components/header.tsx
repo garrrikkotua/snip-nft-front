@@ -7,7 +7,7 @@ export const Header = () => {
   const isConnected = account !== undefined;
 
   return (
-    <div className="flex gap-1 p-4 self-end">
+    <div className="flex pl-2">
       {isConnected ? (
         <button className="btn btn-primary" onClick={deactivate}>
           Disconnect
