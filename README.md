@@ -93,6 +93,6 @@ Project Link: [https://github.com/garrrikkotua/snip-nft-front](https://github.co
 [issues-shield]: https://img.shields.io/github/issues/garrrikkotua/snip-nft-front.svg?style=for-the-badge
 [issues-url]: https://github.com/garrrikkotua/snip-nft-front/issues
 [license-shield]: https://img.shields.io/github/license/garrrikkotua/snip-nft-front.svg?style=for-the-badge
-[license-url]: https://github.com/garrrikkotua/snip-nft-front/blob/master/LICENSE.txt
+[license-url]: https://github.com/garrrikkotua/snip-nft-front/blob/master/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [product-screenshot]: public/snip_nft_image_with_code.png
