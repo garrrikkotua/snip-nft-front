@@ -33,9 +33,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot]](https://ferretthorn-erm7bt-60809987718821.stormkit.dev/)
 
-
+It is a simple web that allows to create beautiful code snippets and mint them as NFTs on Polygon and Optimism blockchains. Who said that code is not an art?
 
 
 ### Built With
