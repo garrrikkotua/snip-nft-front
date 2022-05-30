@@ -252,3 +252,4 @@ export const code_styles_base16 = [
 
 export type CodeStyles = typeof code_styles[number];
 export type CodeStylesBase16 = typeof code_styles_base16[number];
+export const DEFAULT_SELECTED_CODE_STYLE = "vs";

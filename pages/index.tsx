@@ -29,14 +29,13 @@ const Home: NextPage = () => {
 
       <main className="flex w-full flex-1 flex-col items-center px-20 text-center">
         <h2 className="text-2xl font-light mt-10">
-          Create a beautiful code snippet and mint it as NFT on Ethereum (via{" "}
+          Create a beautiful code snippet and mint it as NFT on{" "}
           <a
-            href="https://www.optimism.io/"
+            href="https://polygon.technology/"
             className="underline decoration-[#570DF8]"
           >
-            Optimism
+            Polygon
           </a>
-          )
         </h2>
         <div className="mt-10">
           <SnippetEditor />

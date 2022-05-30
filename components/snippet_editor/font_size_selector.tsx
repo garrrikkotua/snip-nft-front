@@ -1,5 +1,5 @@
 import { font_sizes } from "../../types/font_size";
-const DEFAULT_FONT_SIZE = 12;
+import { DEFAULT_FONT_SIZE } from "../../types/font_size";
 
 export const FontSizeSelector = ({ setFontSize }: any) => {
   return (

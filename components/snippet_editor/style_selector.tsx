@@ -1,5 +1,5 @@
 import { CodeStyles, code_styles } from "../../types/code_styles";
-const DEDAULT_SELECTED_CODE_STYLE = "vs";
+import { DEFAULT_SELECTED_CODE_STYLE } from "../../types/code_styles";
 
 export const StyleSelector = ({ setCodeStyle }: any) => {
   return (
@@ -11,7 +11,7 @@ export const StyleSelector = ({ setCodeStyle }: any) => {
         Style
       </option>
       {code_styles.map((current_code_style, index) =>
-        current_code_style === DEDAULT_SELECTED_CODE_STYLE ? (
+        current_code_style === DEFAULT_SELECTED_CODE_STYLE ? (
           <option key={index} selected={true}>
             {current_code_style}
           </option>

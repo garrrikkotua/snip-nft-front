@@ -4,7 +4,7 @@ import { DAppProvider, Config, Mumbai, OptimismKovan } from "@usedapp/core";
 import { DEFAULT_SELECTED_NETWORK } from "../types/networks";
 
 const config: Config = {
-  networks: [Mumbai, OptimismKovan],
+  networks: [Mumbai],
   readOnlyChainId: DEFAULT_SELECTED_NETWORK.chainId,
   autoConnect: true,
 };

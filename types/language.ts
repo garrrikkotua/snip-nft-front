@@ -76,3 +76,4 @@ export const language_hljs = [
 
 export type Language = typeof language[number];
 export type LanguageHLJS = typeof language_hljs[number];
+export const DEFAULT_SELECTED_LANG = "JavaScript";

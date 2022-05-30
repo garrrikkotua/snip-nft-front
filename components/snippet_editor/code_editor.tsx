@@ -16,6 +16,26 @@ interface CodeEditorProps {
   codeStyle: string;
 }
 
+const JustTheEditor = ({ fontSize, color, lang }: any) => {
+  const [code, setCode] = useStore((state) => [state.code, state.setCode]);
+  return (
+    <Editor
+      value={code}
+      onValueChange={(code) => setCode(code)}
+      highlight={(code) => hljs.highlight(code, { language: lang }).value}
+      padding={10}
+      style={{
+        fontFamily: '"Fira code", "Fira Mono", monospace',
+        fontSize: fontSize,
+        background: color,
+        minHeight: 300,
+      }}
+      id={"capture"}
+      textareaId={"underlyingTextarea"}
+    />
+  );
+};
+
 export const CodeEditor = ({
   lang,
   fontSize,
@@ -24,28 +44,13 @@ export const CodeEditor = ({
   windowColor,
   codeStyle,
 }: CodeEditorProps) => {
-  const [code, setCode] = useStore((state) => [state.code, state.setCode]);
-
   return (
     <>
       <div
         className={windowStyle ? "mockup-window border" : ""}
         style={{ background: windowColor }}
       >
-        <Editor
-          value={code}
-          onValueChange={(code) => setCode(code)}
-          highlight={(code) => hljs.highlight(code, { language: lang }).value}
-          padding={10}
-          style={{
-            fontFamily: '"Fira code", "Fira Mono", monospace',
-            fontSize: fontSize,
-            background: color,
-            minHeight: 300,
-          }}
-          id={"capture"}
-          textareaId={"underlyingTextarea"}
-        />
+        <JustTheEditor fontSize={fontSize} lang={lang} color={color} />
       </div>
       <style>{code_styles_config[codeStyle]}</style>
     </>

@@ -5,7 +5,10 @@ import hljs from "highlight.js/lib/common";
 import { solidity } from "highlightjs-solidity";
 hljs.registerLanguage("solidity", solidity);
 import { LanguageHLJS } from "../../types/language";
-import { CodeStyles } from "../../types/code_styles";
+import {
+  CodeStyles,
+  DEFAULT_SELECTED_CODE_STYLE,
+} from "../../types/code_styles";
 import html2canvas from "html2canvas";
 import { StyleSelector } from "./style_selector";
 import { FontSizeSelector } from "./font_size_selector";
@@ -14,6 +17,9 @@ import { ProgressBar } from "./progress_bar";
 import { CodeEditor } from "./code_editor";
 import { MetadataEditor } from "./metadata_editor";
 import { Minter } from "./minter";
+import { useStore } from "../../hooks/useStore";
+import { DEFAULT_FONT_SIZE } from "../../types/font_size";
+import { DEFAULT_SELECTED_LANG } from "../../types/language";
 
 enum Steps {
   Create_Image,
@@ -45,13 +51,22 @@ function capitalizeFirstLetter(str: string) {
 }
 
 export const SnippetEditor = () => {
-  const [lang, setLang] = useState<LanguageHLJS | string>("python");
+  const [lang, setLang] = useState<LanguageHLJS | string>(
+    DEFAULT_SELECTED_LANG
+  );
   const [color, setColor] = useState<string>("#DB88D6");
-  const [codeStyle, setCodeStyle] = useState<CodeStyles>("vs");
-  const [fontSize, setFontSize] = useState<number>(12);
+  const [codeStyle, setCodeStyle] = useState<CodeStyles>(
+    DEFAULT_SELECTED_CODE_STYLE
+  );
+  const [fontSize, setFontSize] = useState<number>(DEFAULT_FONT_SIZE);
   const [windowStyle, setWindowStyle] = useState<boolean>(true);
   const [windowColor, setWindowColor] = useState<string>("#E1A5DD");
   const [currentStep, setCurrentStep] = useState<number>(Steps.Create_Image);
+
+  const imageData = useStore((state) => state.image_data);
+  const setImageData = useStore((state) => state.setImageData);
+  const description = useStore((state) => state.description);
+  const nftName = useStore((state) => state.nft_name);
 
   const Switcher = ({ step }: SwtitcherProps) => {
     switch (step) {
@@ -90,15 +105,67 @@ export const SnippetEditor = () => {
     return receivedData.IpfsHash;
   };
 
+  const uploadJSONToIPFS = async ({ data }: any) => {
+    const res = await fetch("/api/upload_json", {
+      method: "POST",
+      body: data,
+    });
+
+    const receivedData = await res.json();
+    return receivedData.IpfsHash;
+  };
+
+  const createMetaData = async () => {
+    const image_hash = await uploadToIPFS(imageData);
+    const image_uri = `ipfs://${image_hash}`;
+    let metadata = {
+      name: nftName,
+      description,
+      image: image_uri,
+      atrributes: [
+        {
+          trait_type: "Color",
+          value: color,
+        },
+        {
+          trait_type: "Font Size",
+          value: fontSize,
+        },
+        {
+          trait_type: "Window Color",
+          value: windowColor,
+        },
+        {
+          trait_type: "Language",
+          value: lang,
+        },
+      ],
+    };
+
+    const metadata_hash = await uploadJSONToIPFS(metadata);
+    const token_uri = `ipfs://${metadata_hash}`;
+    return token_uri;
+  };
+
   const createImage = async () => {
     const element = document.querySelector("#capture");
     const canvas = await html2canvas(element as HTMLElement, {
       ignoreElements: (el) => el.id == "underlyingTextarea",
     });
 
-    // const data = canvas.toDataURL("image/png");
+    // const ctx = canvas.getContext("2d");
+    // if (ctx) {
+    //   console.log("adding wm");
+    //   // Set fill size and font, style
 
-    // const ipfs_hash = uploadToIPFS(data);
+    //   ctx.textBaseline = "top"; // start with drawing text from top
+    //   ctx.font = "20px sans-serif"; // set a font and size
+    //   ctx.fillStyle = "red"; // set a color for the text
+    //   ctx.fillText("WATERMARK", 20, 20);
+    // }
+
+    const data = canvas.toDataURL("image/png");
+    setImageData(data);
   };
 
   const switchStep = async () => {
@@ -107,6 +174,8 @@ export const SnippetEditor = () => {
         await createImage();
         setCurrentStep((currentStep + 1) % Object.keys(Steps).length);
       case Steps.Add_Description:
+        setCurrentStep((currentStep + 1) % Object.keys(Steps).length);
+      case Steps.Mint_NFT:
         setCurrentStep((currentStep + 1) % Object.keys(Steps).length);
     }
   };
@@ -155,10 +224,17 @@ export const SnippetEditor = () => {
             <LanguageSelector setLang={setLang} />
           </div>
         </div>
-        <Switcher step={currentStep} />
-        <button className="btn btn-primary mt-5" onClick={switchStep}>
-          {Steps[currentStep].split("_").join(" ")}
-        </button>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            switchStep();
+          }}
+        >
+          <Switcher step={currentStep} />
+          <button className="btn btn-primary mt-5 w-full" type="submit">
+            {Steps[currentStep].split("_").join(" ")}
+          </button>
+        </form>
         <ProgressBar step={currentStep} />
       </div>
     </>

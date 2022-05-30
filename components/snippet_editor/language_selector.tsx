@@ -1,6 +1,5 @@
 import { Language, language, language_hljs } from "../../types/language";
-
-const DEFAULT_SELECTED_LANG = "Python";
+import { DEFAULT_SELECTED_LANG } from "../../types/language";
 
 export const LanguageSelector = ({ setLang }: any) => {
   return (
