@@ -23,12 +23,17 @@ export default async function handler(
   if (req.method == "POST") {
     const image = req.body;
     const newData = image.replace(/^data:image\/png;base64,/, "");
+    // const newData = image.replace(
+    //   /^data:image\/svg + xml;charset = utf - 8,/,
+    //   ""
+    // );
+    console.log("Hit API route");
     const buff = Buffer.from(newData, "base64");
     const stream = Readable.from(buff);
 
     // ¡¡ THE HACK !!
     //@ts-ignore
-    stream.path = "some_filename.jpg";
+    stream.path = "another_filename.jpg";
     const response = await pinata.pinFileToIPFS(stream);
     res.status(200).json({ IpfsHash: response.IpfsHash });
   } else {

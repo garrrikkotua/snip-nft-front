@@ -5,7 +5,7 @@ import hljs from "highlight.js/lib/common";
 import { solidity } from "highlightjs-solidity";
 hljs.registerLanguage("solidity", solidity);
 import code_styles_config from "../../styles/code_styles_config.json";
-import { useStore } from "../../hooks/useStore";
+import { useStore, useEditorStore } from "../../hooks/useStore";
 
 interface CodeEditorProps {
   lang: string;
@@ -36,17 +36,20 @@ const JustTheEditor = ({ fontSize, color, lang }: any) => {
   );
 };
 
-export const CodeEditor = ({
-  lang,
-  fontSize,
-  color,
-  windowStyle,
-  windowColor,
-  codeStyle,
-}: CodeEditorProps) => {
+export const CodeEditor = () => {
+  const [lang, fontSize, color, windowStyle, windowColor, codeStyle] =
+    useEditorStore((state) => [
+      state.lang,
+      state.fontSize,
+      state.color,
+      state.windowStyle,
+      state.windowColor,
+      state.codeStyle,
+    ]);
   return (
     <>
       <div
+        id="editor-area"
         className={windowStyle ? "mockup-window border" : ""}
         style={{ background: windowColor }}
       >

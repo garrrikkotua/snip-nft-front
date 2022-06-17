@@ -21,6 +21,7 @@ export default async function handler(
 ) {
   if (req.method == "POST") {
     const data = req.body;
+    console.log(data);
     const response = await pinata.pinJSONToIPFS(data);
     res.status(200).json({ IpfsHash: response.IpfsHash });
   } else {
