@@ -1,17 +1,26 @@
 import create from "zustand";
 import { Steps, NUMBER_OF_STEPS } from "../types/steps";
 
+interface ImageSize {
+  width: number;
+  height: number;
+}
+
 export interface StoreState {
   code: string;
   description: string;
   image_data: string;
   nft_name: string;
   current_step: Steps;
+  image_size: ImageSize;
+  blob: Blob | null;
   setCode: (newCode: string) => void;
   setDescription: (newDescription: string) => void;
   setImageData: (newData: string) => void;
   setNFTName: (newName: string) => void;
   switchStep: () => void;
+  setImageSize: (newSize: ImageSize) => void;
+  setBlob: (newBlob: Blob) => void;
 }
 
 export const useStore = create<StoreState>()((set) => ({
@@ -30,6 +39,8 @@ const unfold = (f, seed) => {
   image_data: "",
   nft_name: "",
   current_step: 0,
+  image_size: { width: 0, height: 0 },
+  blob: null,
   setCode: (newCode) => set({ code: newCode }),
   setDescription: (newDescription) => set({ description: newDescription }),
   setImageData: (newData) => set({ image_data: newData }),
@@ -38,6 +49,8 @@ const unfold = (f, seed) => {
     set((state) => ({
       current_step: (state.current_step + 1) % NUMBER_OF_STEPS,
     })),
+  setImageSize: (newSize) => set({ image_size: newSize }),
+  setBlob: (newBlob) => set({ blob: newBlob }),
 }));
 
 export interface EditorState {

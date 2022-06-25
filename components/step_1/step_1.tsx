@@ -62,19 +62,55 @@ const RightControls = () => {
 
 export default function Step_1({ step, next_page }: StepProps) {
   const router = useRouter();
-  const setImageData = useStore((state) => state.setImageData);
+  const [setImageData, setImageSize, setBlob] = useStore((state) => [
+    state.setImageData,
+    state.setImageSize,
+    state.setBlob,
+  ]);
 
-  const createImage = async () => {
+  const createImage = () => {
     const element = document.getElementById("editor-area");
+    const width = element?.clientWidth;
+    const height = element?.clientHeight;
     function filter(node: any) {
       return node.id !== "underlyingTextarea";
     }
 
+    //createing data_url from element
     domtoimage
-      .toPng(element as Node, { filter, width: 1000, height: 300 })
+      .toPng(element as Node, {
+        filter,
+        width: width,
+        height: height,
+        style: { overflow: "hidden" },
+      })
       .then(function (dataUrl) {
-        console.log(dataUrl);
         setImageData(dataUrl);
+        setImageSize({
+          //@ts-ignore
+          width: width,
+          //@ts-ignore
+          height: height,
+        });
+      })
+      .catch(function (error) {
+        console.error(
+          "oops, something went wrong when rendering image!",
+          error
+        );
+      });
+
+    //creating blob from element for file upload
+    domtoimage
+      .toBlob(element as Node, {
+        filter,
+        width: width,
+        height: height,
+        style: { overflow: "hidden" },
+      })
+      .then(function (blob) {
+        console.log(blob);
+        setBlob(blob);
       })
       .catch(function (error) {
         console.error(

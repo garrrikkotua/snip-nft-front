@@ -82,11 +82,15 @@ const createMetaData = async ({
 
 export default function Step_3({ step, next_page }: StepProps) {
   const router = useRouter();
-  const [image_data, nft_name, description] = useStore((state) => [
-    state.image_data,
-    state.nft_name,
-    state.description,
-  ]);
+  const [image_data, nft_name, description, image_size, blob] = useStore(
+    (state) => [
+      state.image_data,
+      state.nft_name,
+      state.description,
+      state.image_size,
+      state.blob,
+    ]
+  );
   const [color, lang, windowColor, fontSize] = useEditorStore((state) => [
     state.color,
     state.lang,
@@ -99,16 +103,23 @@ export default function Step_3({ step, next_page }: StepProps) {
 
   const handleClick = async () => {
     setIsMinting(true);
-    const token_uri = await createMetaData({
-      imageData: image_data,
-      nftName: nft_name,
-      description,
-      color,
-      fontSize: fontSize.toString(),
-      windowColor,
-      lang,
+    // const token_uri = await createMetaData({
+    //   imageData: image_data,
+    //   nftName: nft_name,
+    //   description,
+    //   color,
+    //   fontSize: fontSize.toString(),
+    //   windowColor,
+    //   lang,
+    // });
+
+    const response = await fetch("/api/upload_nft_storage", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nft_name, description, blob }),
     });
-    alert(`your token uri is ${token_uri}`);
+    const receivedData = await response.json();
+    alert(`your token uri is ${receivedData.IpfsHash}`);
     router.push(next_page);
   };
 
@@ -117,7 +128,12 @@ export default function Step_3({ step, next_page }: StepProps) {
       <h3 className="pt-2 pb-2">Mint NFT</h3>
       <div className="grid grid-cols-[2fr_1fr]">
         <div>
-          <Image src={image_data} alt="preview NFT" />
+          <Image
+            src={image_data}
+            alt="preview NFT"
+            width={image_size.width}
+            height={image_size.height}
+          />
         </div>
         <div className="flex flex-column items-center mx-auto p-2">
           <strong>

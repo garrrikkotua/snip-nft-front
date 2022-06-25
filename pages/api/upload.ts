@@ -1,7 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import { Readable } from "stream";
-import pinataSDK from "@pinata/sdk";
+import { NFTStorage } from "nft.storage";
 
 type Data = {
   IpfsHash: string;
@@ -10,11 +10,11 @@ type Data = {
 // const PINATA_BASE_URL = "https://api.pinata.cloud";
 // const endpoint = "/pinning/pinFileToIPFS";
 
-const pinata = pinataSDK(
+const API_KEY = process.env.NFT_STORAGE_API_KEY;
+const client = new NFTStorage({
   //@ts-ignore
-  process.env.PINATA_API_KEY,
-  process.env.PINATA_API_SECRET
-);
+  token: API_KEY,
+});
 
 export default async function handler(
   req: NextApiRequest,
